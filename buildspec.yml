@@ -9,7 +9,7 @@ phases:
       - echo Logging in to Amazon ECR...
       - aws --version
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
-      - REPOSITORY_URI=public.ecr.aws/y4g5f8t9/nodeapdaivt
+      - REPOSITORY_URI=p541253215789.dkr.ecr.ap-northeast-2.amazonaws.com/daivt3-pipeline:latest
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=${COMMIT_HASH:=latest}
   build:
@@ -24,7 +24,7 @@ phases:
       - echo Pushing the Docker images...
       
       - echo Writing image definitions file...
-      - printf '[{"name":"nodejsapp","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
+      - printf '[{"name":"daivt3-pipeline","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
 artifacts:
     files: 
       - imagedefinitions.json
